@@ -27,19 +27,29 @@ defaults:
     values:
       layout: post
 
-# 프로젝트 — 글의 front matter 에 project: Pace 처럼 적는다.
-# 여기 있는 것이 표지 위쪽 줄과 글의 프로젝트 배지에 쓰인다.
-# 새 프로젝트를 시작하면 여기 한 줄만 추가하면 된다.
+# 프로젝트. 글의 front matter 에 project: Pace 처럼 적으면 그 프로젝트로 묶인다.
+# 현관(/)의 카드, 좌측 색인의 묶음, 각 프로젝트 로그 페이지가 전부 여기서 나온다.
+#
+# 새 프로젝트를 시작하면:
+#   1. 여기에 항목 하나 추가 (log 는 만들 페이지의 permalink)
+#   2. 루트에 <이름>.md 를 만들고 layout: project · project_name · permalink 세 줄
+#   3. 글에 project: <이름> 을 적는다
 projects:
   - name: Pace
     blurb: 개인 프로젝트 · 혼자
+    # TODO: 이 한 줄은 Pace 가 무엇인지 직접 적어 주세요 — 커밋만 보고 짐작해 쓰지 않았습니다.
+    desc: FastAPI · Next.js · Flutter 를 한 저장소에서 굴리는 모노레포.
+    log: /pace/
     url: https://pace.minahdev.cloud
   - name: Arda
     blurb: 팀 프로젝트 · 4인
-    url: https://ats.minahdev.cloud
+    desc: AI 채용 자동화 플랫폼. 프론트엔드와 앱 두 도메인을 맡았다.
+    period: 2026. 08. 20. ~ 09. 18. 코드 프리즈
+    log: /arda/
+    report: https://ats.minahdev.cloud
 
 nav:
-  - title: 글
+  - title: 현관
     url: /
   - title: 태그
     url: /tags/

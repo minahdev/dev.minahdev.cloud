@@ -65,10 +65,13 @@
       {% for p in site.projects %}
       {% assign posts = site.posts | where: "project", p.name %}
       {% if posts.size > 0 %}
-      <p class="side__group">{{ p.name }} <span>{{ posts.size }}</span></p>
+      <p class="side__group">
+        {% if p.log %}<a href="{{ p.log | relative_url }}">{{ p.name }}</a>{% else %}{{ p.name }}{% endif %}
+        <span>{{ posts.size }}</span>
+      </p>
       {% for post in posts %}
       <a class="side__item{% if page.url == post.url %} is-here{% endif %}" href="{{ post.url | relative_url }}"
-         {% if page.url == post.url %}aria-current="page"{% endif %} data-t="{{ post.title }}">
+         {% if page.url == post.url %}aria-current="page"{% endif %} data-t="{{ post.title }}" title="{{ post.title }}">
         <span class="side__num">{{ post.date | date: "%m.%d" }}</span>
         <span class="side__t">{{ post.title }}</span>
         {% if page.url == post.url %}<span class="side__badge">보는 중</span>{% endif %}
@@ -82,7 +85,7 @@
       <p class="side__group">그 밖 <span>{{ untagged.size }}</span></p>
       {% for post in untagged %}
       <a class="side__item{% if page.url == post.url %} is-here{% endif %}" href="{{ post.url | relative_url }}"
-         {% if page.url == post.url %}aria-current="page"{% endif %} data-t="{{ post.title }}">
+         {% if page.url == post.url %}aria-current="page"{% endif %} data-t="{{ post.title }}" title="{{ post.title }}">
         <span class="side__num">{{ post.date | date: "%m.%d" }}</span>
         <span class="side__t">{{ post.title }}</span>
         {% if page.url == post.url %}<span class="side__badge">보는 중</span>{% endif %}

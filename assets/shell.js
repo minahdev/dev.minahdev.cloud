@@ -76,9 +76,10 @@
   var list = document.querySelector('.onpage__nav');
   if (!main || !box || !list) return;
 
-  // 글 목록 안의 h2 는 글 제목이라 여기 넣지 않는다 — 목록을 그대로 한 번 더 적는 꼴이 된다.
+  // 글 목록과 현관 카드 안의 h2 는 절 제목이 아니라 글·프로젝트 이름이다.
+  // 여기 넣으면 화면에 있는 것을 오른쪽에 한 번 더 적는 꼴이 된다.
   var heads = Array.prototype.slice.call(main.querySelectorAll('h2')).filter(function (h) {
-    return !h.closest('.feed');
+    return !h.closest('.feed') && !h.closest('.hubcard');
   });
   if (heads.length < 2) return;
 

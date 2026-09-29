@@ -1,0 +1,44 @@
+---
+layout: default
+---
+{% assign proj = site.projects | where: "name", page.project_name | first %}
+{% assign posts = site.posts | where: "project", page.project_name %}
+
+<div class="lede">
+  <p class="lede__crumb"><a href="{{ '/' | relative_url }}">개발 로그</a> &rsaquo; {{ page.project_name }}</p>
+  <h1>{{ page.project_name }} 개발 로그</h1>
+  {% if proj %}<p>{{ proj.blurb }}{% if page.summary %} &middot; {{ page.summary }}{% endif %}{% if proj.period %} &middot; {{ proj.period }}{% endif %}</p>{% endif %}
+</div>
+
+{% if proj %}
+<div class="projmeta">
+  <div class="projmeta__i"><span>글</span><b>{{ posts.size }}편</b></div>
+  {% if posts.size > 0 %}
+  <div class="projmeta__i"><span>최근</span><b>{{ posts.first.date | date: "%Y. %m. %d." }}</b></div>
+  <div class="projmeta__i"><span>처음</span><b>{{ posts.last.date | date: "%Y. %m. %d." }}</b></div>
+  {% endif %}
+  {% if proj.url %}<div class="projmeta__i"><span>서비스</span><b><a href="{{ proj.url }}">{{ proj.url | remove: "https://" }}</a></b></div>{% endif %}
+  {% if proj.report %}<div class="projmeta__i"><span>보고서</span><b><a href="{{ proj.report }}">{{ proj.report | remove: "https://" }}</a></b></div>{% endif %}
+</div>
+{% endif %}
+
+{{ content }}
+
+<ol class="feed">
+{% for post in posts %}
+  <li class="feed__item">
+    <time class="feed__date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%Y. %m. %d." }}</time>
+    <div class="feed__body">
+      <h2><a href="{{ post.url | relative_url }}">{{ post.title }}</a></h2>
+      {% if post.summary %}<p>{{ post.summary }}</p>{% endif %}
+      {% if post.tags.size > 0 %}
+      <p class="feed__tags">{% for t in post.tags %}<a class="tag" href="{{ '/tags/#' | append: t | relative_url }}">{{ t }}</a>{% endfor %}</p>
+      {% endif %}
+    </div>
+  </li>
+{% endfor %}
+</ol>
+
+{% if posts.size == 0 %}
+<p class="empty">아직 이 프로젝트의 글이 없다. 글의 front matter 에 <code>project: {{ page.project_name }}</code> 를 적으면 여기 모인다.</p>
+{% endif %}
