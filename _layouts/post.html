@@ -1,0 +1,44 @@
+---
+layout: default
+---
+<article class="post">
+
+  <header class="post__head">
+    <p class="post__back"><a href="{{ '/' | relative_url }}">&larr; 글 목록</a></p>
+    {% if page.project %}
+    {% assign proj = site.projects | where: "name", page.project | first %}
+    <p class="post__proj">
+      <a href="{{ '/tags/#' | append: page.project | relative_url }}">{{ page.project }}</a>
+      {% if proj %}<span>{{ proj.blurb }}</span>{% endif %}
+    </p>
+    {% endif %}
+    <h1>{{ page.title }}</h1>
+    <p class="post__meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%Y. %m. %d." }}</time>
+      {% if page.tags.size > 0 %}
+      <span class="post__tags">
+        {% for t in page.tags %}<a class="tag" href="{{ '/tags/#' | append: t | relative_url }}">{{ t }}</a>{% endfor %}
+      </span>
+      {% endif %}
+    </p>
+    {% if page.summary %}<p class="post__sum">{{ page.summary }}</p>{% endif %}
+  </header>
+
+  <div class="prose">
+    {{ content }}
+  </div>
+
+  <nav class="post__nav" aria-label="다른 글">
+    {% if page.previous %}
+    <a class="post__prev" href="{{ page.previous.url | relative_url }}">
+      <span>이전 글</span>{{ page.previous.title }}
+    </a>
+    {% endif %}
+    {% if page.next %}
+    <a class="post__next" href="{{ page.next.url | relative_url }}">
+      <span>다음 글</span>{{ page.next.title }}
+    </a>
+    {% endif %}
+  </nav>
+
+</article>

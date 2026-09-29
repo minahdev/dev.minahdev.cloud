@@ -1,0 +1,59 @@
+# 사이트 이름과 소개. 상단 바와 표지, RSS 에 쓰인다.
+title: 개발 로그
+tagline: 김민아
+description: >-
+  만들면서 겪은 것을 그때그때 적는다.
+  무엇이 잘못됐고 무엇을 골랐는지, 근거와 함께.
+
+author: 김민아
+github_username: minahdev
+
+# 커스텀 도메인 dev.minahdev.cloud 로 서빙한다.
+# DNS(CNAME dev → minahdev.github.io, 프록시 끔)와 Pages 커스텀 도메인을 먼저 붙인 뒤에
+# 첫 push 를 해야 한 번도 깨지지 않는다. 도메인을 바꾸려면 여기와 루트의 CNAME 파일 둘 다 고친다.
+baseurl: ""
+url: "https://dev.minahdev.cloud"
+
+permalink: /:year/:month/:day/:title/
+
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+
+# 프로젝트 — 글의 front matter 에 project: Pace 처럼 적는다.
+# 여기 있는 것이 표지 위쪽 줄과 글의 프로젝트 배지에 쓰인다.
+# 새 프로젝트를 시작하면 여기 한 줄만 추가하면 된다.
+projects:
+  - name: Pace
+    blurb: 개인 프로젝트 · 혼자
+    url: https://pace.minahdev.cloud
+  - name: Arda
+    blurb: 팀 프로젝트 · 4인
+    url: https://ats.minahdev.cloud
+
+nav:
+  - title: 글
+    url: /
+  - title: 태그
+    url: /tags/
+  - title: 소개
+    url: /about/
+
+links:
+  - title: GitHub
+    url: https://github.com/minahdev
+
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - vendor/
+  - .bundle/
+  - README.md
+  - CLAUDE.md

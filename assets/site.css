@@ -1,0 +1,264 @@
+---
+---
+/* 개발 로그. 보고서 사이트(ats.minahdev.cloud)와 같은 계열로 맞추되,
+   글이 쌓이는 곳이라 날짜가 앞에 서는 구조로 짰다.
+   흐린 회색(#9ca3af)은 대비가 모자라 쓰지 않는다. */
+
+:root {
+  --ink: #111827;
+  --body: #1f2937;
+  --sub: #374151;
+  --cap: #4b5563;      /* 흰 배경 7.0:1 */
+  --line: #e5e7eb;
+  --hair: #eef0f2;
+  --wash: #f9fafb;
+  --accent: #1d4ed8;   /* 흰 배경 6.3:1 */
+  --deep: #1e3a8a;
+  --chip: #eef2ff;
+  --wrap: 44rem;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+body {
+  margin: 0;
+  font-family: "IBM Plex Sans KR", "Noto Sans KR", system-ui, sans-serif;
+  background: #fff;
+  color: var(--body);
+  line-height: 1.75;
+  word-break: keep-all;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--accent); }
+a:hover { color: var(--deep); }
+
+:where(a, button):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+.skip { position: absolute; left: -9999px; top: 0; background: #fff; padding: 10px 14px; border: 1px solid var(--accent); }
+.skip:focus { left: 0; }
+
+.wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
+
+/* ── 상단 바 ─────────────────────────── */
+
+.top { border-bottom: 1px solid var(--line); background: #fff; }
+.top__in {
+  max-width: var(--wrap);
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.top__brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--accent); flex: 0 0 auto; }
+.top__name { font-size: 15px; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
+.top__rule { width: 1px; height: 13px; background: var(--line); flex: 0 0 auto; }
+.top__who { font-size: 13px; color: var(--cap); }
+
+.top__nav { margin-left: auto; display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+.top__nav a { font-size: 13px; font-weight: 500; text-decoration: none; color: var(--sub); }
+.top__nav a:hover { color: var(--accent); }
+.top__nav a.is-here { color: var(--ink); font-weight: 600; box-shadow: inset 0 -2px 0 var(--accent); }
+.top__ext { color: var(--cap) !important; font-weight: 400 !important; }
+.top__ext:hover { color: var(--accent) !important; }
+
+/* ── 표지 문단 ───────────────────────── */
+
+.lede { padding: 3rem 0 2rem; border-bottom: 2px solid var(--ink); margin-bottom: 2rem; }
+.lede h1 { margin: 0 0 .5rem; font-size: 1.85rem; letter-spacing: -.015em; color: var(--ink); }
+.lede p { margin: 0; color: var(--cap); font-size: .95rem; line-height: 1.7; }
+
+/* ── 글 목록 ─────────────────────────── */
+
+.feed { list-style: none; margin: 0; padding: 0; }
+.feed__item { display: flex; gap: 1.1rem; padding: 1.3rem 0; border-bottom: 1px solid var(--hair); }
+.feed__item:last-child { border-bottom: 0; }
+.feed__date {
+  flex: 0 0 6.4rem;
+  padding-top: .35rem;
+  font: 400 .78rem/1.5 "IBM Plex Mono", ui-monospace, monospace;
+  color: var(--cap);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;   /* "2026. 09." / "16." 로 갈라지던 것 */
+}
+.feed__body { min-width: 0; flex: 1; }
+
+/* 프로젝트 이름 — 갈래 태그와 구분되게 색 대신 대문자 간격과 굵기로 세운다 */
+.feed__proj { margin: 0 0 .15rem !important; }
+.feed__proj a, .feed__proj {
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .1em;
+  color: var(--cap);
+  text-decoration: none;
+}
+.feed__proj a:hover { color: var(--accent); }
+.feed__proj--sm { margin: .1rem 0 0 !important; font-weight: 500; letter-spacing: .06em; }
+
+.feed__body h2, .feed__body h3 { margin: 0 0 .35rem; font-size: 1.06rem; line-height: 1.5; letter-spacing: -.01em; }
+.feed__body h3 { font-size: .98rem; font-weight: 500; }
+.feed__body h2 a, .feed__body h3 a { color: var(--ink); text-decoration: none; }
+.feed__body h2 a:hover, .feed__body h3 a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.feed__body p { margin: 0 0 .5rem; font-size: .9rem; line-height: 1.7; color: var(--sub); }
+.feed__tags { margin: 0 !important; display: flex; gap: .35rem; flex-wrap: wrap; }
+.feed--tight .feed__item { padding: .55rem 0; }
+
+.tag {
+  display: inline-block;
+  font-size: .72rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  color: var(--deep);
+  background: var(--chip);
+  border: 1px solid #dde3f7;
+  border-radius: 3px;
+  padding: .1rem .42rem;
+  text-decoration: none;
+  line-height: 1.6;
+}
+.tag:hover { background: #e2e8ff; color: var(--deep); }
+.tag--big { font-size: .85rem; padding: .3rem .6rem; }
+.tag--big span { font-family: "IBM Plex Mono", monospace; color: var(--cap); font-size: .75rem; }
+
+.tagcloud { display: flex; flex-wrap: wrap; gap: .45rem; margin-bottom: 2.5rem; }
+.taggroup { margin-bottom: 2.25rem; }
+.taggroup h2 { font-size: 1.02rem; color: var(--accent); margin: 0 0 .4rem; padding-bottom: .4rem; border-bottom: 1px solid var(--line); }
+.taggroup h2 span { font: 400 .78rem "IBM Plex Mono", monospace; color: var(--cap); margin-left: .35rem; }
+
+.empty { color: var(--cap); font-size: .92rem; padding: 1.5rem 0; }
+
+/* ── 프로젝트 줄 (표지) ───────────────── */
+
+.projects { margin-bottom: 2.5rem; }
+.projects__k {
+  margin: 0 0 .6rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  color: var(--cap);
+}
+.projects__row { display: flex; gap: .7rem; flex-wrap: wrap; }
+.proj {
+  flex: 1 1 13rem;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: .75rem .9rem;
+}
+.proj p { margin: 0; }
+.proj__name { font-size: 1rem; font-weight: 700; letter-spacing: -.01em; }
+.proj__name a { color: var(--ink); text-decoration: none; }
+.proj__name a:hover { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.proj__blurb { margin-top: .12rem !important; font-size: .78rem; color: var(--cap); }
+.proj__n { margin-top: .45rem !important; font-size: .78rem; }
+.proj__n a { text-decoration: none; }
+.proj__n a:hover { text-decoration: underline; }
+
+.tag--proj { font-weight: 700; letter-spacing: .04em; }
+
+/* ── 글 ──────────────────────────────── */
+
+.post { padding-bottom: 3rem; }
+.post__head { padding: 2.5rem 0 1.4rem; border-bottom: 2px solid var(--ink); margin-bottom: 2rem; }
+.post__back { margin: 0 0 1rem; font-size: .85rem; }
+.post__proj { margin: 0 0 .5rem; display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap; }
+.post__proj a { font-size: .74rem; font-weight: 700; letter-spacing: .1em; color: var(--accent); text-decoration: none; }
+.post__proj a:hover { text-decoration: underline; }
+.post__proj span { font-size: .76rem; color: var(--cap); }
+.post__back a { text-decoration: none; }
+.post__back a:hover { text-decoration: underline; }
+.post__head h1 { margin: 0 0 .7rem; font-size: 1.75rem; line-height: 1.45; letter-spacing: -.015em; color: var(--ink); }
+.post__meta { margin: 0; display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; }
+.post__meta time { font: 400 .8rem "IBM Plex Mono", monospace; color: var(--cap); }
+.post__tags { display: flex; gap: .35rem; flex-wrap: wrap; }
+.post__sum { margin: .9rem 0 0; font-size: .95rem; line-height: 1.75; color: var(--sub); }
+
+/* 본문 */
+.prose { font-size: 1rem; }
+.prose > * + * { margin-top: 1.15rem; }
+.prose h2 {
+  margin-top: 2.6rem;
+  font-size: 1.12rem;
+  color: var(--accent);
+  padding-bottom: .4rem;
+  border-bottom: 1px solid var(--line);
+  letter-spacing: -.01em;
+}
+.prose h3 { margin-top: 2rem; font-size: 1rem; color: var(--ink); }
+.prose p { color: var(--body); }
+.prose strong { color: var(--ink); font-weight: 600; }
+.prose ul, .prose ol { padding-left: 1.3rem; }
+.prose li { margin: .35rem 0; }
+.prose li::marker { color: var(--cap); }
+.prose blockquote {
+  margin-left: 0;
+  padding: .2rem 0 .2rem 1.1rem;
+  border-left: 3px solid var(--line);
+  color: var(--sub);
+}
+.prose code {
+  font: .85em/1.5 "IBM Plex Mono", ui-monospace, monospace;
+  background: #f3f4f6;
+  border: 1px solid var(--line);
+  border-radius: 3px;
+  padding: .08em .32em;
+  word-break: normal;
+}
+.prose pre {
+  background: var(--wash);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: .9rem 1rem;
+  overflow-x: auto;
+  font-size: .82rem;
+  line-height: 1.7;
+}
+.prose pre code { background: none; border: 0; padding: 0; font-size: 1em; }
+.prose img { max-width: 100%; height: auto; border-radius: 6px; border: 1px solid var(--line); }
+.prose hr { border: 0; border-top: 1px solid var(--line); margin: 2.4rem 0; }
+.prose table { width: 100%; border-collapse: collapse; font-size: .88rem; display: block; overflow-x: auto; }
+.prose th { text-align: left; background: var(--wash); border-bottom: 1px solid var(--line); padding: .5rem .6rem; font-size: .78rem; color: var(--cap); white-space: nowrap; }
+.prose td { border-bottom: 1px solid var(--hair); padding: .5rem .6rem; vertical-align: top; }
+
+/* 이전 / 다음 */
+.post__nav { display: flex; gap: .75rem; margin-top: 3rem; }
+.post__nav a {
+  flex: 1;
+  min-width: 0;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: .8rem .95rem;
+  text-decoration: none;
+  color: var(--ink);
+  font-size: .9rem;
+  line-height: 1.55;
+}
+.post__nav a:hover { border-color: var(--accent); }
+.post__nav a span { display: block; font-size: .72rem; color: var(--cap); margin-bottom: .2rem; }
+.post__next { text-align: right; }
+
+/* ── 바닥 ────────────────────────────── */
+
+.foot { margin-top: 4rem; border-top: 1px solid var(--line); padding: 1.6rem 0 3rem; }
+.foot p { margin: 0; font-size: .82rem; color: var(--cap); }
+.foot__links { margin-top: .4rem !important; display: flex; gap: .9rem; }
+.foot__links a { text-decoration: none; }
+.foot__links a:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .top__in { height: auto; padding: 12px 16px; flex-wrap: wrap; gap: 10px; }
+  .top__nav { margin-left: 0; width: 100%; gap: 12px; }
+  .feed__item { flex-direction: column; gap: .3rem; }
+  .feed__date { flex: none; padding-top: 0; }
+  .post__nav { flex-direction: column; }
+  .post__next { text-align: left; }
+}

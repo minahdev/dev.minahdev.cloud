@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+{% seo %}
+{% feed_meta %}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+KR:wght@300;400;500;600;700&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+<link rel="stylesheet" href="{{ '/assets/site.css' | relative_url }}">
+</head>
+<body>
+
+<a class="skip" href="#main">본문으로 건너뛰기</a>
+
+<header class="top">
+  <div class="top__in">
+    <a class="top__brand" href="{{ '/' | relative_url }}">
+      <svg width="17" height="17" viewBox="0 0 17 17" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M3 2.5v12"></path><path d="M6.4 4.6h7.6"></path><path d="M6.4 8.5h7.6"></path><path d="M6.4 12.4h4.8"></path></svg>
+      <span class="top__name">{{ site.title }}</span>
+      <span class="top__rule"></span>
+      <span class="top__who">{{ site.tagline }}</span>
+    </a>
+
+    <nav class="top__nav" aria-label="사이트">
+      {% for item in site.nav %}
+      {% assign href = item.url | relative_url %}
+      <a href="{{ href }}"{% if page.url == item.url %} aria-current="page" class="is-here"{% endif %}>{{ item.title }}</a>
+      {% endfor %}
+      <span class="top__rule"></span>
+      {% for l in site.links %}
+      <a href="{{ l.url }}" class="top__ext">{{ l.title }}</a>
+      {% endfor %}
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+  {{ content }}
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>{{ site.title }} · {{ site.tagline }}</p>
+    <p class="foot__links">
+      <a href="{{ '/feed.xml' | relative_url }}">RSS</a>
+      {% for l in site.links %}<a href="{{ l.url }}">{{ l.title }}</a>{% endfor %}
+    </p>
+  </div>
+</footer>
+
+</body>
+</html>
