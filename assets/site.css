@@ -4,20 +4,24 @@
    보고서 사이트(ats.minahdev.cloud)와 같은 것을 쓰고, 그 안의 목록·글 스타일만 다르다.
    흐린 회색(#9ca3af)은 대비가 모자라 쓰지 않는다. */
 
+/* 중립색은 푸른 회색에서 따뜻한 쪽으로 옮겼고, 강조는 파랑에서 인주색 하나로 바꿨다.
+   파랑(#1d4ed8) + 푸른 회색 조합이 "기본 문서 테마" 인상의 출처였다. */
 :root {
-  --ink: #111827;
-  --body: #1f2937;
-  --sub: #374151;
-  --cap: #4b5563;       /* 흰 배경 7.0:1 */
-  --line: #e5e7eb;
-  --hair: #eef0f2;
-  --wash: #f9fafb;
-  --side: #f7f8fa;
-  --accent: #1d4ed8;    /* 흰 배경 6.3:1 */
-  --deep: #1e3a8a;
-  --here-bg: #eaefff;
-  --chip: #d8e1ff;
-  --tagbg: #eef2ff;
+  --ink: #16130F;       /* 순검정 대신 따뜻한 먹 */
+  --body: #2A2621;
+  --sub: #4A443C;
+  --cap: #6B6357;       /* 종이 위 5.6:1 */
+  --line: #E2DCD1;
+  --hair: #EDE8DE;
+  --wash: #F7F3EA;
+  --side: #F5F1E8;
+  --paper: #FCFAF5;     /* 순백 아님 */
+  --accent: #A32E22;    /* 인주색 — 흰 배경 7.0:1 */
+  --deep: #7A2118;
+  --here-bg: #F6E9E5;
+  --chip: #EFD9D4;
+  --tagbg: #F5EFE4;
+  --tagline: #DFD5C3;
   --side-w: 264px;
   --onpage-w: 200px;
   --top-h: 56px;
@@ -31,11 +35,22 @@ html { scroll-behavior: smooth; scroll-padding-top: 76px; }
 body {
   margin: 0;
   font-family: "IBM Plex Sans KR", "Noto Sans KR", system-ui, sans-serif;
-  background: #fff;
+  background: var(--paper);
   color: var(--body);
   line-height: 1.75;
   word-break: keep-all;
   -webkit-font-smoothing: antialiased;
+}
+
+/* 표제는 명조, 본문은 산세리프. 한 벌로 다 처리해 활자에 성격이 없던 것을 가른다. */
+.lede h1,
+.post__head h1,
+.prose h2,
+.prose h3,
+.hubcard__top h2,
+.feed__body h2,
+.taggroup h2 {
+  font-family: "Noto Serif KR", "IBM Plex Sans KR", serif;
 }
 
 a { color: var(--accent); }
@@ -43,7 +58,7 @@ a:hover { color: var(--deep); }
 
 .skip {
   position: absolute; left: -9999px; top: 0;
-  background: #fff; color: var(--ink);
+  background: var(--paper); color: var(--ink);
   padding: 10px 14px; border: 1px solid var(--accent);
   border-radius: 0 0 6px 0; z-index: 100;
 }
@@ -62,7 +77,7 @@ a:hover { color: var(--deep); }
   height: var(--top-h);
   display: flex; align-items: center; gap: 20px;
   padding: 0 20px;
-  background: #fff;
+  background: var(--paper);
   border-bottom: 1px solid var(--line);
 }
 
@@ -74,8 +89,8 @@ a:hover { color: var(--deep); }
 .top__drawer {
   display: none; align-items: center; justify-content: center;
   width: 34px; height: 34px;
-  border: 1px solid #d5d9df; border-radius: 5px;
-  background: #fff; color: var(--sub); cursor: pointer;
+  border: 1px solid var(--line); border-radius: 5px;
+  background: var(--paper); color: var(--sub); cursor: pointer;
 }
 
 .top__search { flex: 1; min-width: 0; display: flex; align-items: center; justify-content: center; gap: 10px; }
@@ -83,7 +98,7 @@ a:hover { color: var(--deep); }
 .top__search .field {
   display: flex; align-items: center; gap: 8px;
   width: min(372px, 100%); height: 33px;
-  border: 1px solid #d5d9df; border-radius: 5px;
+  border: 1px solid var(--line); border-radius: 5px;
   padding: 0 7px 0 10px; color: var(--cap);
 }
 .top__search .field:focus-within { border-color: var(--accent); }
@@ -94,7 +109,7 @@ a:hover { color: var(--deep); }
 .kbd {
   flex: 0 0 auto;
   font: 500 10.5px/1 "IBM Plex Mono", monospace;
-  color: var(--cap); background: #f3f4f6;
+  color: var(--cap); background: var(--wash);
   border: 1px solid var(--line); border-radius: 3px; padding: 3px 5px;
 }
 
@@ -143,7 +158,7 @@ a:hover { color: var(--deep); }
   text-decoration: none; color: var(--body);
   font-size: 13.5px; line-height: 1.55;
 }
-.side__item:hover { background: #e8ebef; color: var(--ink); }
+.side__item:hover { background: #EAE4D8; color: var(--ink); }
 
 /* 글 제목은 길다 — 두 줄에서 자른다. 세 줄 넘게 접히면 색인을 훑을 수가 없다.
    전체 제목은 title 속성으로 띄운다. */
@@ -226,7 +241,7 @@ a:hover { color: var(--deep); }
   margin-bottom: .85rem;
   transition: border-color .12s ease, background .12s ease;
 }
-.hubcard:hover { border-color: var(--accent); background: #fbfcff; }
+.hubcard:hover { border-color: var(--accent); background: var(--wash); }
 .hubcard:hover .hubcard__go { color: var(--deep); }
 
 .hubcard__top { display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .5rem; }
@@ -236,7 +251,7 @@ a:hover { color: var(--deep); }
   margin-left: auto; flex: 0 0 auto;
   font: 500 .78rem "IBM Plex Mono", monospace;
   color: var(--deep); background: var(--tagbg);
-  border: 1px solid #dde3f7; border-radius: 3px; padding: .12rem .45rem;
+  border: 1px solid var(--tagline); border-radius: 3px; padding: .12rem .45rem;
 }
 .hubcard__desc { margin: 0 0 .85rem; font-size: .96rem; line-height: 1.8; color: var(--sub); }
 
@@ -317,10 +332,10 @@ a:hover { color: var(--deep); }
   display: inline-block;
   font-size: .72rem; font-weight: 500; letter-spacing: .02em;
   color: var(--deep); background: var(--tagbg);
-  border: 1px solid #dde3f7; border-radius: 3px;
+  border: 1px solid var(--tagline); border-radius: 3px;
   padding: .1rem .42rem; text-decoration: none; line-height: 1.6;
 }
-.tag:hover { background: #e2e8ff; color: var(--deep); }
+.tag:hover { background: #EDE4D2; color: var(--deep); }
 .tag--big { font-size: .85rem; padding: .3rem .6rem; }
 .tag--big span { font-family: "IBM Plex Mono", monospace; color: var(--cap); font-size: .75rem; }
 .tag--proj { font-weight: 700; letter-spacing: .04em; }
@@ -365,7 +380,7 @@ a:hover { color: var(--deep); }
 .prose blockquote { margin-left: 0; padding: .2rem 0 .2rem 1.1rem; border-left: 3px solid var(--line); color: var(--sub); }
 .prose code {
   font: .85em/1.5 "IBM Plex Mono", ui-monospace, monospace;
-  background: #f3f4f6; border: 1px solid var(--line); border-radius: 3px;
+  background: var(--wash); border: 1px solid var(--line); border-radius: 3px;
   padding: .08em .32em; word-break: normal;
 }
 .prose pre {
